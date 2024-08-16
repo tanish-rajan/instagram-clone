@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/story.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+</head>
+<body onload="document.body.style.opacity='1'">
+   
+    <div id="main" style="color: white;">
+<a href="/home">
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+<lord-icon
+    src="https://cdn.lordicon.com/zmkotitn.json"
+    trigger="hover"
+    colors="primary:#ffffff"
+    style="width:50px;height:50px">
+</lord-icon>
+</a>
+  
+        <div class="swiper mySwiper swiper2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" >
+                    <div class="swiper mySwiper swiper1">
+                       <a href="/profile/<%= story._id %>">
+                        <div id="box">
+                            <div class="cir">
+                                <img src="<%= story.profileimg.url %>" alt="">
+                            </div>
+                            <h2><%= story.username %></h2>
+                        </div>
+                       </a>
+                        <div class="swiper-wrapper">
+                           
+                          <% story.story.forEach(function(e){
+                             e.imgs.forEach(function(img){%>
+                                <% if (img.url.match(/\.(mp4|webm|ogg)$/) != null) { %>
+                                    <div class="swiper-slide">
+                                      <video src="<%= img.url %>" controls></video>
+              
+                                    </div>
+              
+                                          <% } else if (img.url.match(/\.(jpeg|jpg|gif|png|webp|fig|avif)$/) != null) { %>
+                                              <div class="swiper-slide">
+                                                  
+                          
+                                                  <img src="<%= img.url %>" alt=""> 
+                                                </div>
+                                          <% } %>
+                          <% })}) %>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                            
+                     
+                      </div>
+                  </div>
+                <% 
+                all.forEach(function(elem){%>
+                  <% if(elem.story.length > 0){%> 
+                    <%
+                    if(elem.username !== story.username){%>
+                        <div class="swiper-slide" >
+                            <div class="swiper mySwiper swiper1">
+                               <a href="/profile/<%= elem._id %>">
+                                <div id="box">
+                                    <div class="cir">
+                                        <img src="<%= elem.profileimg.url %>" alt="">
+                                    </div>
+                                    <h2><%= elem.username %></h2>
+                                </div>
+                               </a>
+                                <div class="swiper-wrapper">
+                                  <% elem.story.forEach(function(e){
+                                     e.imgs.forEach(function(img){%>
+                                        <% if (img.url.match(/\.(mp4|webm|ogg)$/) != null) { %>
+                                            <div class="swiper-slide">
+                                              <video src="<%= img.url %>" controls></video>
+                      
+                                            </div>
+                      
+                                                  <% } else if (img.url.match(/\.(jpeg|jpg|gif|png|webp|fig|avif)$/) != null) { %>
+                                                      <div class="swiper-slide">
+                                                          
+                                  
+                                                          <img src="<%= img.url %>" alt=""> 
+                                                        </div>
+                                                  <% } %>
+                                  <% })}) %>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination"></div>
+                             
+                              </div>
+                          </div>
+                    <%}
+                    
+                    %>
+                    
+                    <%} %>
+               
+                 
+                 <!-- <div class="story">
+                    
+                       
+                 </div>
+          -->
+               <% })
+                %>
+        
+           
+            </div>
+          
+            <div class="swiper-pagination"></div>
+          </div>
+
+     
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".swiper1", {
+      pagination: {
+        el: ".swiper-pagination",
+        type: "progressbar",
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+    var swiper = new Swiper(".swiper2", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+    
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/home.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+</head>
+
+<body onload="document.body.style.opacity='1'">
+
+    <div id="main">
+
+        <div id="nav">
+         <div class="n2">
+            <h1>
+                Socihut
+            </h1>
+           <div class="search">
+            <i class="uil uil-search"></i>
+            <input type="text" name="" placeholder="Search for creators,inspirations, and projects" id="se">
+
+           </div>
+           <div class="s3">
+            <a href="">Create</a>
+            <div class="pimg">
+                <img src="<%= loggedInuser.profileimg.url %>" alt="">
+            </div>
+         </div>
+           </div>
+        </div>
+        <div id="second_part">
+            <div class="sec" id="o1">
+
+              <a href="/profile/<%=loggedInuser._id%>" style="text-decoration: none;">
+                <div class="id">
+                    <div class="pimg">
+                      <img src="<%= loggedInuser.profileimg.url %>" alt="">
+                    </div>
+                    <div class="sid">
+                      <h1><%= loggedInuser.name %></h1>
+                      <h2>@<%= loggedInuser.username %></h2>
+                    </div>
+                  </div>
+              </a>
+                <div class="sec2">
+                  <a href="/home">
+                    <i class="uil uil-home"></i>
+                    <h1>Home</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-compass"></i>
+                    <h1>Explore</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-bell"></i>
+                    <h1>Notifications</h1>
+                  </a>
+                  <a href="/chat">
+                    <i class="uil uil-envelopes"></i>
+                    <h1>Messages</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-bookmark"></i>
+                    <h1>Bookmarks</h1>
+                  </a>
+                   <div id="st" >
+                    <i class="uil uil-plus"></i>
+                    <form action="/story" method="POST" enctype="multipart/form-data" >
+                      <input type="file" name="files" id="ts" style="display: none;" multiple>
+                      <input id="sub" type="submit"  style="display: none;">
+                      <h2>Add Story</h2>
+                    </form>
+                    
+                   </div>
+                 
+                  <a href="">
+                    <i class="uil uil-palette"></i>
+                    <h1>Theme</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-setting"></i>
+                    <h1>Settings</h1>
+                  </a>
+    
+                </div>
+                <div class="sec3">
+                    <a href="/logout">
+                      Logout
+                    </a>
+                </div>
+            </div>
+            <div class="sec" id="cent">
+                <div class="stories">
+                  <% 
+                  if(loggedInuser.story.length > 0){%> 
+                    <a href="/story/<%= loggedInuser._id %> %>">
+                      <div class="story">
+                         
+                        <img src= "<%= loggedInuser.profileimg.url  %> " alt="">
+                    <div class="name">
+                        <h1>Your Story</h1>
+                    </div>
+                    </div>
+                     </a>
+                    
+                    <%}
+                  else{%> 
+                    
+                    <a href="">
+                      <div class="story">
+                         
+                        <img src= "<%= loggedInuser.profileimg.url  %> " alt="">
+                    <div class="name">
+                        <h1>Add  Story</h1>
+                    </div>
+                    </div>
+                     </a>
+                     <%}
+                  %>
+              
+                  <%
+                  user.forEach(function(img){%> 
+                 
+                    <% 
+                    if(img.userid.story.length > 0){%> 
+                     <% if(img.userid.username !== loggedInuser.username){%> 
+                    
+                        <a href="/story/<%= img.userid._id %>">
+                     <div class="story">
+                    
+                       <img src= "<%= img.userid.profileimg.url  %> " alt="">
+                   <div class="name">
+                       <h1><%= img.userid.username %></h1>
+                   </div>
+                   </div>
+                    </a>
+                    
+                   
+                     <%} %>
+                      <%}
+                   
+                    %>
+                 
+                    <%})
+                    
+                    %>
+                 
+                </div>
+       
+                <div id="posts">
+                    <% 
+                      user.forEach(function(post){%>
+                        
+                        <div class="post">
+                            <div class="s">
+                               <div class="f">
+                                <div class="cir">
+                                    <img src="<%= post.userid.profileimg.url %>" alt="">
+                                </div>
+                                <a href="/profile/<%= post.userid._id %>">
+                                    <%= post.userid.username %>
+                                </a>
+                             
+                               </div>
+                                <div class="dots">
+                                    <div class="d"></div>
+                                    <div class="d"></div>
+                                    <div class="d"></div>
+                                </div>
+                            </div>
+                            <div class="s" id="f">
+                                <i class="ri-heart-fill" id="fl"></i>
+                                <div class="swiper mySwiper">
+                                    <div class="swiper-wrapper">
+                                        <% post.imgs.forEach(function(elem){%>
+                                
+                                            <% if (elem.url.match(/\.(mp4|webm|ogg)$/) != null) { %>
+                                      <div class="swiper-slide">
+                                        <video src="<%= elem.url %>" controls></video>
+                
+                                      </div>
+                
+                                            <% } else if (elem.url.match(/\.(jpeg|jpg|gif|png|webp|fig|avif)$/) != null) { %>
+                                                <div class="swiper-slide">
+                                                    
+                            
+                                                    <img src="<%= elem.url %>" alt=""> 
+                                                  </div>
+                                            <% } %>
+                
+                                            <% }) %>
+                                         
+                                    </div>
+                                        
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-pagination"></div>    
+                                  </div>
+                                
+                            </div>
+                            <div class="s">
+                                <div class="s1">
+                                  <% if(post.like.indexOf(loggedInuser._id) !==-1){%>
+                                    <a href="/unlike/<%= loggedInuser._id %>/<%= post._id %>">
+                  
+                                      <i id="fill" class="ri-heart-fill"></i>
+                                    </a>
+                  
+                                    <%} else{%>
+                                      <a href="/like/<%= loggedInuser._id %>/<%= post._id %>">
+                                        <i class="ri-heart-line" id="heart"></i></a>
+                                      <%} %>
+                                
+                                    <i class="uil uil-comments" id="cmt"></i>
+                                    <i class="uil uil-share-alt"></i>
+        
+                                </div>
+                                <i class="ri-bookmark-line"></i>
+                            </div>
+                            <div class="l">
+                                <h3>Liked by <%= post.like.length %></h3>
+                                
+                            </div>
+                            <div class="dis">
+                                <P>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, itaque qui! Tempore nobis recusandae ducimus!</P>
+                            </div>
+                            <div class="comments">
+                              <% post.comment.forEach(function(post){ %>
+                                <a style="text-decoration: none; color: black;" href="/profile/<%= post.author._id %> "> <div class="ct">
+                                <div style="border: 2px black solid; margin-bottom: 5vh;">
+                                  <div  id="pr">
+                                    <div class="pcir">
+                                      <img src="<%= post.author.profileimg.url %>" alt="">
+                                    </div>
+                                    <h3><%= post.author.name %></h3>
+                                </div>
+                                <p><%= post.comment %></p>
+                            </div>
+                                </div> 
+                                </a>
+                             <% }) %>
+                                <form action="/comment/<%= post._id %>" method="post">
+                                      <textarea name="comment" id="" cols="30" rows="10"></textarea>
+                                      <input type="submit" value="comment">
+                                </form>
+                            </div>
+                                                    
+                        </div>
+
+                      <%})
+                    %>
+                   
+                    <!-- <div class="post">
+                        <div class="s">
+                           <div class="f">
+                            <div class="cir">
+                                <img src="https://plus.unsplash.com/premium_photo-1669825003963-b76f8035d678?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60" alt="">
+                            </div>
+                            <h3>
+                                    Hello
+                            </h3>
+                           </div>
+                            <div class="dots">
+                                <div class="d"></div>
+                                <div class="d"></div>
+                                <div class="d"></div>
+                            </div>
+                        </div>
+                        <div class="s">
+                            <i class="ri-heart-fill"></i>
+                            <img src="https://images.unsplash.com/photo-1680254321973-f5e235a20c54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1400&q=80" alt="">
+                        </div>
+                        <div class="s">
+                            <div class="s1">
+                                <i class="ri-heart-line" id="heart"></i>
+                                <i class="ri-chat-1-line" id="cmt"></i>
+                                <i class="ri-send-plane-fill"></i>
+    
+                            </div>
+                            <i class="ri-bookmark-line"></i>
+                        </div>
+                        <div class="comments">
+                            <div class="ct">
+                                <div id="pr">
+                                    <div class="pcir"></div>
+                                    <h3>Garvit jain</h3>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus minus debitis repudiandae voluptatibus laudantium autem.</p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div> -->
+                </div>
+            </div>
+            <div class="sec" id="o3"></div> 
+        </div>
+        <div id="mob">
+          <a href="/home">
+            <i class="uil uil-estate"></i>
+          </a>
+          <a href="">
+            <i class="ri-search-line"></i>
+          </a>
+          <a href="">
+            <svg aria-label="Reels" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="2.049" x2="21.95" y1="7.002" y2="7.002"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="13.504" x2="16.362" y1="2.001" y2="7.002"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="7.207" x2="10.002" y1="2.11" y2="7.002"></line><path d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z" fill-rule="evenodd"></path></svg>
+          </a>
+          <a href="/chat">
+            <i class="ri-chat-3-line"></i>
+          </a>
+          <a href="/profile/<%= loggedInuser._id %>">
+            <div id="p">
+              <img src="<%= loggedInuser.profileimg.url %>" alt="">
+            </div>
+          </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js" integrity="sha512-06NZg89vaTNvnFgFTqi/dJKFadQ6FIglD6Yg1HHWAUtVFFoXli9BZL4q4EO1UTKpOfCfW5ws2Z6gw49Swsilsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../javascripts/home.js"></script>
+  <script>
+      var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+        type: "progressbar",
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+    document.querySelector("#st").addEventListener("click",function(){
+            document.querySelector('input[type="File"]').click();
+        })
+        document.querySelector('input[type="File"]').addEventListener("change",function(){
+            document.querySelector('#sub').click()
+        })
+    // document.querySelector("#st").addEventListener("click",function(){
+    //   document.querySelector("ts").click()
+    // })
+    // document.querySelector("#ts").addEventListener("change",function(){
+    //   document.querySelector("#sub").click()
+    // })
+    document.querySelector("#se").addEventListener("click",function(){
+      window.location.href = "/search"
+    })
+
+    document.querySelector("#se").addEventListener("input",function(){
+      if(this.value.trim().length %1 === 0 ){
+        axios.get(`http://localhost:3000/search/${this.value}`).then(function(resp){
+          if (resp.data.avail.length > 0) {
+          console.log("hello");
+          console.log(resp.data.avail)
+        } else {
+          console.log("no user");
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+    
+})
+      }
+    })
+  
+  </script>
+</body>
+
+</html>
+
+

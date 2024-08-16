@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/msg.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" integrity="sha512-vEia6TQGr3FqC6h55/NdU3QSM5XR6HSl5fW71QTKrgeER98LIMGwymBVM867C1XHIkYD9nMTfWK2A0xcodKHNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+</head>
+
+<body onload="document.body.style.opacity='1'">
+
+    <div id="main">
+
+        <div id="nav">
+         <div class="n2">
+            <h1>
+                Socihut
+            </h1>
+           <div class="search">
+            <i class="uil uil-search"></i>
+            <input type="text" name="" placeholder="Search for creators,inspirations, and projects" id="">
+
+           </div>
+           <div class="s3">
+            <a href="">Create</a>
+            <div class="pimg">
+                <img src="<%= loggedInuser.profileimg.url %>" alt="">
+            </div>
+         </div>
+           </div>
+        </div>
+        <div id="second_part">
+            <div class="sec" id="o1">
+
+              <a href="/profile/<%=loggedInuser._id%>" style="text-decoration: none;">
+                <div class="id">
+                    <div class="pimg">
+                      <img src="<%= loggedInuser.profileimg.url %>" alt="">
+                    </div>
+                    <div class="sid">
+                      <h1><%= loggedInuser.name %></h1>
+                      <h2>@<%= loggedInuser.username %></h2>
+                    </div>
+                  </div>
+              </a>
+                <div class="sec2">
+                  <a href="/home">
+                    <i class="uil uil-home"></i>
+                    <h1>Home</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-compass"></i>
+                    <h1>Explore</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-bell"></i>
+                    <h1>Notifications</h1>
+                  </a>
+                  <a href="/chat">
+                    <i class="uil uil-envelopes"></i>
+                    <h1>Messages</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-bookmark"></i>
+                    <h1>Bookmarks</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-chart-line"></i>
+                    <h1>Analytics</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-palette"></i>
+                    <h1>Theme</h1>
+                  </a>
+                  <a href="">
+                    <i class="uil uil-setting"></i>
+                    <h1>Settings</h1>
+                  </a>
+    
+                </div>
+                <div class="sec3">
+                    <h1>Create Post</h1>
+                </div>
+            </div>
+            <div class="sec" id="o3">
+             <div class="s">
+                <h3><%= loggedInuser.username %></h3>
+                
+             </div>
+             <hr>
+
+             <div class="chat">
+              <% all.forEach(function(elem){ if(elem.username !== loggedInuser.username) { %>
+     <div class="persons" 
+      data-photo="<%= elem.profileimg.url %>">
+      <div class="sec" data-id="<%= elem._id %>"   data-name="<%= elem.username %>" data-img="<%=elem.profileimg.url%>">
+        <div id="cir" style="pointer-events: none;">
+          <img src="<%= elem.profileimg.url %>" alt="">
+        </div>
+        <div class="m" style="pointer-events: none;">
+          <h1><%= elem.username %></h1>
+          
+          <% 
+          if(elem.online === "1"){%>
+            <h5 id="<%= elem._id %>-status" class="on"  >Online</h5>
+
+          <% }
+          else{%> 
+            <h5 id="<%= elem._id %>-status" class="of"  >Offline</h5>
+            
+            <%}
+          %>
+        </div>
+      </div>
+     </div>
+<%
+    }
+  });
+%>
+
+            
+             </div>
+            </div>
+            <div class="sec" id="cent">
+<div id="blank">
+  <div class="cc">
+    <i class="ri-send-plane-fill"></i>
+  </div>
+  <h3>End to end encrypited </h3>
+</div>
+                     <div class="pmsg">
+                      <div class="first">
+                       
+
+                     </div>
+                     <div id="msgs">
+                
+                  
+                     </div>
+                    <div id="bottom">
+                         <form id="formchat">
+                          <textarea name="mycss" id="text" cols="30" rows="10"></textarea>
+                          <!-- <input type="text" placeholder="msg"> -->
+                          <button type="submit">
+                       <i class="ri-send-plane-fill"></i>
+
+                   </button>
+                         </form>
+                    </div>
+                     </div>
+            </div> 
+        </div>
+
+    </div>
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js" integrity="sha512-hkvXFLlESjeYENO4CNi69z3A1puvONQV5Uh+G4TUDayZxSLyic5Kba9hhuiNLbHqdnKNMk2PxXKm0v7KDnWkYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    
+    <script src="../javascripts/home.js"></script>
+<script>
+  var us
+     var socket = io({
+      auth : {
+        token:`<%= loggedInuser._id %>`
+      }
+     })
+    
+    $('#text').emojioneArea({
+     pickerPosition :'top',
+     filtersPosition: "bottom",
+ tonesStyle: "square",
+ shortnames: true,
+ tones:false,
+ search:true,
+ placeholder: "Message (optional)",
+   })
+
+
+   var clutter = "";
+// console.log()
+//    axios.get("/user").then(function(data){
+//     console.log(data)
+//     console.dir(data.data)
+//         // data.forEach(function(elem){
+           
+           
+//         // });
+     
+//     })
+// var OnlineStatus;
+//       var recieverName;
+//       var recieverPhoto;
+//       var reciever_id;
+//       var sender_id = "<%= loggedInuser._id %>";
+//       var ChatSection = document.querySelector(".pmsg");
+// socket.on("getonline",function(data){
+//   console.log(data)
+//   $('#' + data.user_id + '-status' ).text('Online')
+//   $('#' + data.user_id + '-status' ).removeClass('of');
+//   $('#' + data.user_id + '-status' ).addClass('on');
+
+
+// })
+// socket.on("getoffline",function(data){
+//   $('#' + data.user_id + '-status' ).text('Offline')
+//   $('#' + data.user_id + '-status' ).removeClass('on');
+//   $('#' + data.user_id + '-status' ).addClass('of');
+
+
+// })
+var OnlineStatus;
+var recieverName;
+var recieverPhoto;
+var reciever_id;
+var chatid;
+var sender_id = "<%= loggedInuser._id %>";
+var ChatSection = document.querySelector(".pmsg");
+
+socket.on("getonline", function (data) {
+  // console.log(data);
+  $('#' + data.user_id + '-status').text('Online');
+  $('#' + data.user_id + '-status').removeClass('of');
+  $('#' + data.user_id + '-status').addClass('on');
+});
+
+socket.on("getoffline", function (data) {
+  $('#' + data.user_id + '-status').text('Offline');
+  $('#' + data.user_id + '-status').removeClass('on');
+  $('#' + data.user_id + '-status').addClass('of');
+});
+
+var clutter = "";
+var UserList = document.querySelectorAll(".chat");
+UserList.forEach(function (User) {
+  User.addEventListener("click", function (event) {
+    event.preventDefault();
+    cl();
+    document.querySelector("#blank").style.display = "none";
+    ChatSection.style.display = "initial";
+    var userId = event.target.getAttribute("data-id");
+    reciever_id = userId;
+    var name = event.target.getAttribute("data-name");
+    recieverName = name;
+
+    var SendPhoto = event.target.getAttribute("data-img");
+
+    clutter = ` <div class="cir">
+      <img src="${SendPhoto}" alt="">
+    </div>
+    <h1>${name}</h1>`;
+    document.querySelector(".first").innerHTML = clutter;
+
+    socket.emit("existsChat", {
+      sender_id: sender_id,
+      reciever_id: reciever_id,
+    });
+  });
+});
+
+$("#formchat").submit(function (event) {
+  event.preventDefault();
+  var message = $("#text").val();
+  if (!reciever_id) {
+    alert("Please select a recipient before sending a message.");
+    return;
+  }
+
+  $.ajax({
+    url: "/savechat",
+    type: "POST",
+    data: {
+      sender_id: sender_id,
+      reciever_id: reciever_id,
+      message: message,
+    },
+    success: function (response) {
+      if (response.success) {
+        console.log(response.data);
+        console.log(response.data._id);
+        chatid = response.data._id;
+        let chat = response.data.message;
+        let createdAt = new Date(response.data.createdAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        let Delete = `<i id="arrow" class="ri-arrow-down-s-line"></i> 
+    <div class="del">
+      <a href="#" class="delete-message" data-message-id="${response.data._id}">Delete</a>
+    </div>
+  `;
+        let html = `<div class="rig">
+          <h6>${chat}</h6>
+          <h5>${createdAt}</h5>
+           ${Delete}
+        </div>`;
+        $("#msgs").append(html);
+        $(".emojionearea-editor").html('');
+        $("#text").val("");
+        cl();
+        scrollDown();
+        socket.emit("newChat", response.data);
+      } else {
+        alert(response.msg);
+      }
+    },
+    error: function (error) {
+      alert("Error sending chat message.");
+    },
+  });
+});
+
+socket.on("loadNewChat", function (data) {
+  if (sender_id == data.reciever_id && reciever_id == data.sender_id) {
+    let createdAt = new Date(data.createdAt).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    let html = `<div class="msg">
+      <h6>${data.message}</h6>
+      <h5>${createdAt}</h5>
+    </div>`;
+    $("#msgs").append(html);
+    scrollDown();
+  }
+});
+
+function formatDate(timestamp) {
+  const now = new Date();
+  const date = new Date(timestamp);
+
+  if (
+    date.getDate() === now.getDate() &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear()
+  ) {
+
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  } else if (
+    date.getDate() === now.getDate() - 1 &&
+    date.getMonth() === now.getMonth() &&
+    date.getFullYear() === now.getFullYear()
+  ) {
+   
+    return "Yesterday";
+  } else {
+
+    return date.toLocaleDateString([], {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+}
+
+socket.on("loadChats", function (data) {
+  $("#msgs").html("");
+
+  var chat = data.chats;
+  let html = "";
+
+  for (let x = 0; x < chat.length; x++) {
+    let addClass = chat[x]["sender_id"] === sender_id ? "rig" : "msg";
+    let createdAt = formatDate(chat[x].createdAt);
+    let deleteLink = chat[x].deleted
+      ? ""
+      : `<i id="arrow" class="ri-arrow-down-s-line"></i> 
+    <div class="del">
+      <a href="#" class="delete-message" data-message-id="${chat[x]._id}">Delete</a>
+    </div>
+  `; // Add a condition to show/hide the delete link based on the 'deleted' status
+    html += `
+      <div class='${addClass}'>
+        <h6>${chat[x]["message"]}</h6>
+        <h5>${createdAt}</h5>
+        ${deleteLink}
+      </div>
+    `;
+  }
+  $("#msgs").append(html);
+  scrollDown();
+
+ 
+});
+
+function scrollDown() {
+  var objdiv = document.querySelector("#msgs");
+  objdiv.scrollTop = objdiv.scrollHeight;
+}
+function cl() {
+  setTimeout(() => {
+    var flag = 0;
+    document.querySelectorAll(".rig").forEach(function (rig) {
+      rig.children[2].addEventListener("click", function () {
+        if (flag === 0) {
+          rig.children[3].style.clipPath = "polygon(0 100%, 100% 100%, 100% 0, 0 0)";
+          rig.children[2].style.transform = "rotate(180deg)";
+          flag = 1;
+        } else {
+          rig.children[3].style.clipPath = "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)";
+          rig.children[2].style.transform = "rotate(0deg)";
+          flag = 0;
+        }
+      });
+
+      rig.children[3].children[0].addEventListener("click", function (event) {
+        event.preventDefault();
+        const messageId = event.target.getAttribute("data-message-id");
+
+        axios
+          .delete(`http://localhost:3000/del/${messageId}`)
+          .then(function (response) {
+
+         socket.on("messageDeleted",deletedElement)
+            rig.remove(); 
+            document.querySelectorAll(".msg").forEach(function(msg){
+              console.log(msg.target.getAttribute("data-message-id"))
+            })
+          })
+          .catch(function (error) {
+            console.error(error);
+         
+          });
+        
+      });
+      
+    });
+  }, 100);
+}
+// socket.on("messageDeleted", function (deletedMessageId) {
+//   const deletedElement = document.querySelector(`[data-message-id="${deletedMessageId}"]`);
+//   if (deletedElement) {
+//     deletedElement.parentElement.remove();
+
+//     // Remove the deleted message from the collection as well
+//     document.querySelectorAll(".msg").forEach(function (msg) {
+//       if (msg.getAttribute("data-message-id") === deletedMessageId) {
+//         msg.remove();
+//       }
+//     });
+
+//     // Update client-side storage to mark the message as deleted
+//     // For example, using local storage:
+//     const deletedMessageIds = JSON.parse(localStorage.getItem("deletedMessageIds")) || [];
+//     deletedMessageIds.push(deletedMessageId);
+//     localStorage.setItem("deletedMessageIds", JSON.stringify(deletedMessageIds));
+//   }
+// });
+</script>
+
+</body>
+
+</html>

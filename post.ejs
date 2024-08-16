@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/post.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" integrity="sha512-vEia6TQGr3FqC6h55/NdU3QSM5XR6HSl5fW71QTKrgeER98LIMGwymBVM867C1XHIkYD9nMTfWK2A0xcodKHNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+<body onload="document.body.style.opacity='1'">
+    <div id="main">
+        <!-- <h1><%= user %></h1> -->
+     
+        <div class="post">
+            <div class="s">
+               <div class="f">
+                <div class="cir">
+                    <img src="<%= loggedinUser.profileimg.url %>" alt="">
+                </div>
+                <h3>
+                    <%= loggedinUser.username %>
+                </h3>
+               </div>
+             
+            </div>
+            <div class="s"  id="s1">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                      <% user.imgs.forEach(function(elem){%>
+                                
+                        <% if (elem.url.match(/\.(mp4|webm|ogg)$/) != null) { %>
+                  <div class="swiper-slide">
+                    <video src="<%= elem.url %>" controls></video>
+
+                  </div>
+
+                        <% } else if (elem.url.match(/\.(jpeg|jpg|gif|png|webp|fig|avif)$/) != null) { %>
+                            <div class="swiper-slide">
+                                
+        
+                                <img src="<%= elem.url %>" alt=""> 
+                              </div>
+                        <% } %>
+
+                        <% }) %>
+                         
+                    </div>
+                        
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>    
+                  </div>
+             
+            </div>
+            
+        
+        </div>
+        <form action="/finalpost/<%= user._id %>/<%= loggedinUser._id %>" id="desk" method="post">
+
+            <textarea name="cmnt" id="text" cols="30" rows="10" class="mycss" placeholder="Write your comment" ></textarea>
+            <button type="submit">
+               Post <i class="uil uil-message"></i>
+            </button>
+        </form>
+        <form action="/finalpost/<%= user._id %>/<%= loggedinUser._id %>" id="mo" method="post">
+
+          <textarea name="cmnt" id="textmob" cols="30" rows="10" placeholder="Write your comment" ></textarea>
+          <button type="submit">
+             <i class="uil uil-message"></i>
+          </button>
+      </form>
+
+      
+        <div id="cross">
+            <a href="/clouddel/<%= user._id %>/<%= loggedinUser._id %>">
+            <i class="uil uil-times"></i>
+
+            </a>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js" integrity="sha512-hkvXFLlESjeYENO4CNi69z3A1puvONQV5Uh+G4TUDayZxSLyic5Kba9hhuiNLbHqdnKNMk2PxXKm0v7KDnWkYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script>
+          $('#text').emojioneArea({
+    pickerPosition :'top',
+    filtersPosition: "bottom",
+tonesStyle: "square",
+shortnames: true,
+// tones:false,
+search:true,
+
+  })
+  var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+        type: "progressbar",
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+    </script> 
+</body>
+</html>

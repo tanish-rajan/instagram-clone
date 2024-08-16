@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" integrity="sha512-vEia6TQGr3FqC6h55/NdU3QSM5XR6HSl5fW71QTKrgeER98LIMGwymBVM867C1XHIkYD9nMTfWK2A0xcodKHNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="../stylesheets/profile.css">
+</head>
+<body onload="document.body.style.opacity='1'">
+    <div id="main">
+
+    <div class="sec" id="o1">
+        <a href="/profile/<%= main._id %>" style="text-decoration: none;">
+          <div class="id">
+              <div class="pimg">
+                <img src="<%= main.profileimg.url %>" alt="">
+              </div>
+              <div class="sid">
+                <h1><%= main.name %></h1>
+                <h2>@ <%= main.username %></h2>
+              </div>
+            </div>
+        </a>
+          <div class="sec2">
+            <a href="/home">
+              <i class="uil uil-home"></i>
+              <h1>Home</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-compass"></i>
+              <h1>Explore</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-bell"></i>
+              <h1>Notifications</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-envelopes"></i>
+              <h1>Messages</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-bookmark"></i>
+              <h1>Bookmarks</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-chart-line"></i>
+              <h1>Analytics</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-palette"></i>
+              <h1>Theme</h1>
+            </a>
+            <a href="">
+              <i class="uil uil-setting"></i>
+              <h1>Settings</h1>
+            </a>
+
+          </div>
+          <% if(main.username == user.username){%>
+            <div class="sec3">
+
+              <h1>Create Post</h1>
+          </div>
+         <% }
+
+          %>
+        
+
+
+    </div>
+    <div id="second">
+        <div id="sec1">
+            <div id="pimg">
+                <img src="<%= user.profileimg.url %>" alt="">
+            </div>
+<div class="se" id="desk">
+<div class="sec2" id="btsec1">
+  <h1 style="display: flex;align-items: center;justify-content: center;gap: 10px;"> <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+    <lord-icon
+        src="https://cdn.lordicon.com/ehfubvwr.json"
+        trigger="loop"
+        delay="2000"
+        style="width:30px;height:30px">
+    </lord-icon> <%= user.username %></h1>
+    <% if(main.username == user.username){%>
+      <button class="btn">
+        <a href="/edit">Edit profile</a>
+
+      </button>
+      <button class="btn">
+        <a href="/delete/<%= user._id %>">Delete Account</a>
+      </button>
+      <% } 
+      else{%>
+        <% if(main.following.indexOf(user._id) !== -1){%>
+          <button class="btn" data-user-id="<%= user._id %>" style="padding:1vw 2vw;background-color: red;" onClick="unfollowUser('<%= user._id%>')">
+            Unfollow <i class="uil uil-user-plus"></i>
+          </button>
+        
+          <!-- <% if(user.following.indexOf(main._id) !== -1){ %>
+            <p>Follows you back</p>
+          <% } %> -->
+        
+        <%} else {%>
+        
+          <button class="btn" id="follow" data-user-id="<%= user._id %>" style="padding:1vw 2vw;" onClick="followUser('<%= user._id%>')">
+            <% if(user.following.indexOf(main._id) !== -1){ %>
+              <p>Follows Back</p>
+            <% }
+            else{%>
+               Follow
+              <%}
+            
+            %> <i class="uil uil-user-plus"></i>
+          </button>
+        
+        
+        
+        <%} %>
+        
+        <button class="btn" id="ms">
+          <a href="">
+            Message <i class="uil uil-comment-add"></i>
+          </a>
+        </button>
+      <%}
+      
+      %>
+</div> 
+   
+   <div class="sec2">
+    <h1><%= user.post.length %> Posts</h1>
+      <a href=""> <%= user.follower.length %> Followes</a >
+      <a  href=""> <%= user.following.length %> Following</a >
+  </div>
+  <div class="sec3">
+    <h1> <%= user.name %></h1>
+    <p style="width: 100%;"> <%= user.bio %></p>
+  </div>
+</div>
+<div class="se" id="mo">
+  <div class="sec2" id="btsec1">
+    
+    <h1><%= user.post.length %> Posts</h1> 
+    <a href=""> <%= user.follower.length %> Followes</a >
+      <a  href=""> <%= user.following.length %> Following</a >
+   
+  </div> 
+     <div class="sec2" id="btsec2">
+     
+      <h1 style="display: flex;align-items: center;justify-content: center;gap: 10px;"> <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+        <lord-icon id="lord"
+            src="https://cdn.lordicon.com/ehfubvwr.json"
+            trigger="loop"
+            delay="2000"
+            style="width:30px;height:30px">
+        </lord-icon> <%= user.username %></h1>
+          <h1> <%= user.name %></h1>
+      <p style="width: 100%;"> <%= user.bio %></p>     
+    </div>
+    <div class="sec3">
+ 
+      <% if(main.username == user.username){%>
+        <button>
+          <a href="/edit">Edit profile</a>
+  
+        </button>
+        <button>
+          <a href="/delete/user">Delete Account</a>
+        </button>
+        <% } 
+        else{%>
+          <button class="btn">
+            <a href="">
+              Follow <i class="uil uil-user-plus"></i>
+            </a>
+  
+          </button>
+          <button class="btn" id="ms">
+            <a href="">
+              Message <i class="uil uil-comment-add"></i>
+            </a>
+          </button>
+        <%}
+        
+        %>
+    </div>
+  </div>
+        </div>
+        <div class="bar">
+
+         <a href="/profile/<%= user._id %>">
+          <div class="b">
+            <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+            <lord-icon id="lo"
+                src="https://cdn.lordicon.com/zvllgyec.json"
+                trigger="hover"
+                style="width:2.5vw;height:2.5vw">
+            </lord-icon>
+<h3>Gallery</h3>
+          </div>
+         </a>
+         <a href="/userpost/<%= user._id %>">
+          <div class="b">
+            <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+<lord-icon id="lo"
+    src="https://cdn.lordicon.com/fcrbbplx.json"
+    trigger="hover"
+    style="width:2.5vw;height:2.5vw">
+</lord-icon>
+<h3>Posts</h3>
+          </div>
+         </a>
+        <a href="/uservideo/<%= user._id %>">
+          <div class="b">
+            <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+<lord-icon id="lo"
+    src="https://cdn.lordicon.com/hmkhncjw.json"
+    trigger="hover"
+    style="width:2.5vw;height:2.5vw">
+</lord-icon>
+<h3>Videos</h3>
+          </div>
+        </a>
+      <a href="/usertaged/<%= user._id %>">
+        <div class="b">
+          <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+<lord-icon id="lo"
+  src="https://cdn.lordicon.com/eanmttmw.json"
+  trigger="hover"
+  style="width:2.5vw;height:2.5vw">
+</lord-icon>
+<h3>Saved</h3>
+        </div>
+      </a>
+          <div class="line"></div>
+        </div>
+ 
+        
+<div class="posts">
+  <% user.post.forEach(function(elem) { %>
+
+       
+        <div class="p">
+          <% 
+          if(  elem.imgs.length > 1){%>
+            <div class="slides">
+              <i class="uil uil-images"></i> 
+            </div>
+          <%}
+          %>
+      
+          <% if (elem.imgs[0].url.match(/\.(mp4|webm|ogg)$/) != null) { %>
+            
+              <video src="<%= elem.imgs[0].url %>" controls ></video>
+
+           <% } else if (elem.imgs[0].url.match(/\.(jpeg|jpg|gif|png|webp|fig|avif)$/) != null) { %>
+                          <img src="<%= elem.imgs[0].url %>" alt="" > 
+                        
+                  <% } %>
+            
+            <div class="over">
+                <div class="h">
+                    <i class="ri-heart-fill"></i>
+
+                    <%= elem.like.length %>
+                </div>
+                <div class="c">
+                    <i class="ri-chat-1-fill"></i>
+                    120
+                </div>
+            </div>
+            <div class="cross">
+              <i class="uil uil-times"></i>
+            </div>
+        </div>
+
+<% }) %>
+
+    
+    </div>
+
+
+
+
+</div>
+    </div>
+    <div id="upload">
+      <div class="box">
+    
+        <i class="uil uil-film"></i>
+        <h1>Add Media</h1>
+        <form action="/posts" method="POST" enctype="multipart/form-data">
+          <input type="file" name="files" style="display: none;" multiple required>
+          <!-- <textarea name="" id="text" cols="30" rows="10" placeholder="Add your Caption" class="myCustomCss"  required></textarea> -->
+          <button type="submit">Submit</button>
+         </form>
+      </div>
+
+      <!-- <div class="box">
+        <i id="ab" class="uil uil-film"></i>
+        <h1>Videos</h1>
+        <form  action="/video" method="POST" enctype="multipart/form-data" >
+          <input  type="file" name="files[]" style="display: none;" multiple>
+          <button type="submit">Submit</button>
+         </form>
+
+      </div> -->
+      <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+<lord-icon id="cross"
+    src="https://cdn.lordicon.com/jfhbogmw.json"
+    trigger="hover"
+    colors="primary:#ffffff"
+    style="width:50px;height:50px">
+</lord-icon>
+    </div>
+    <div id="mob">
+      <a href="/home">
+        <i class="uil uil-estate"></i>
+      </a>
+      <a href="">
+        <i class="ri-search-line"></i>
+      </a>
+      <a href="">
+        <svg aria-label="Reels" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="2.049" x2="21.95" y1="7.002" y2="7.002"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="13.504" x2="16.362" y1="2.001" y2="7.002"></line><line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="7.207" x2="10.002" y1="2.11" y2="7.002"></line><path d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z" fill-rule="evenodd"></path></svg>
+      </a>
+      <a href="/chat">
+        <i class="ri-chat-3-line"></i>
+      </a>
+      <a href="/profile/<%= main._id %>">
+        <div id="p">
+          <img src="<%= main.profileimg.url %>" alt="">
+        </div>
+      </a>
+      <div class="sec3" id="add">
+        <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+  <lord-icon
+      src="https://cdn.lordicon.com/mrdiiocb.json"
+      trigger="loop"
+      delay="2000"
+      colors="primary:black"
+      style="width:3vh;height:3vh">
+  </lord-icon>
+      </div>
+    </div>
+   
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js" integrity="sha512-AMl4wfwAmDM1lsQvVBBRHYENn1FR8cfOTpt8QVbb/P55mYOdahHD4LmHM1W55pNe3j/3od8ELzPf/8eNkkjISQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js" integrity="sha512-hkvXFLlESjeYENO4CNi69z3A1puvONQV5Uh+G4TUDayZxSLyic5Kba9hhuiNLbHqdnKNMk2PxXKm0v7KDnWkYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../javascripts/profile.js"></script>
+<script>
+
+  
+  function followUser(userId) {
+  axios.get('/following/' + userId)
+    .then(function(response) {
+      console.log(response.data);
+      
+      location.reload();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
+
+function unfollowUser(userId) {
+  axios.get('/unfollow/' + userId)
+    .then(function(response) {
+      console.log(response.data);
+      location.reload();
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
+
+const followButton = document.querySelector(`button[data-user-id="${userId}"]`);
+followButton.innerHTML = 'Unfollow <i class="uil uil-user-plus"></i>';
+const unfollowButton = document.querySelector(`button[data-user-id="${userId}"]`);
+unfollowButton.innerHTML = 'Follow <i class="uil uil-user-plus"></i>';
+
+</script>
+</body>
+</html>
